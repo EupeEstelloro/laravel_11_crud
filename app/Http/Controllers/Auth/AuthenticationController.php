@@ -49,17 +49,13 @@ class AuthenticationController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect()->intended($this->redirectTo);
+        return redirect()->route('login')->with('success', 'Registration Successful. Please Login.');
     }
 
     public function logout(Request $request)

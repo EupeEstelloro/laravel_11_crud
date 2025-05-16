@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\Auth\AuthenticationController;
+use App\Http\Controllers\AuthenticationController;
 
 // Public routes
 Route::get('/', function () {

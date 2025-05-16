@@ -8,12 +8,11 @@
                         Add New Product
                     </div>
                     <div class="float-end">
-                        <a href="{{ route('products.index') }}" class="btn 
-btn-primary btn-sm">&larr; Back</a>
+                        <a href="{{ route('products.index') }}" class="btn btn-primary btn-sm">&larr; Back</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('products.store') }}" method="post">
+                    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 row">
                             <label for="code" class="col-md-4 col-formlabel text-md-end text-start">Code</label>
@@ -71,7 +70,13 @@ btn-primary btn-sm">&larr; Back</a>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <input type="submit" class="col-md-3 offsetmd-5 btn btn-primary" value="Add Product">
+                            <div class="col-md-6 offset-md-4 d-flex gap-2">
+                                <input type="submit" class="btn btn-primary" value="Add Product">
+                                <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" accept="image/*">
+                                @error('photo')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </form>
                 </div>

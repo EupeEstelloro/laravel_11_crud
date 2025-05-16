@@ -7,7 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -34,7 +34,13 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request): RedirectResponse
     {
-        Product::create($request->validated());
+        $data = $request->validated();
+        
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('products', 'public');
+        }
+
+        Product::create($data);
         return redirect()->route('products.index')
             ->withSuccess('New product is added successfully.');
     }
@@ -58,10 +64,19 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductRequest $request, Product
-    $product): RedirectResponse
+    public function update(UpdateProductRequest $request, Product $product): RedirectResponse
     {
-        $product->update($request->validated());
+        $data = $request->validated();
+        
+        if ($request->hasFile('photo')) {
+            // Delete old photo if exists
+            if ($product->photo) {
+                Storage::disk('public')->delete($product->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('products', 'public');
+        }
+
+        $product->update($data);
         return redirect()->back()
             ->withSuccess('Product is updated successfully.');
     }
@@ -71,6 +86,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product): RedirectResponse
     {
+        if ($product->photo) {
+            Storage::disk('public')->delete($product->photo);
+        }
+        
         $product->delete();
         return redirect()->route('products.index')
             ->withSuccess('Product is deleted successfully.');

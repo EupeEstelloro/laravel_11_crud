@@ -18,7 +18,7 @@
                             <label for="code" class="col-md-4 col-formlabel text-md-end text-start">Code</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control 
-@error('code') is-invalid @enderror"
+                                @error('code') is-invalid @enderror"
                                     id="code" name="code" value="{{ old('code') }}">
                                 @error('code')
                                     <span class="text-danger">{{ $message }}</span>
@@ -29,7 +29,7 @@
                             <label for="name" class="col-md-4 col-formlabel text-md-end text-start">Name</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control 
-@error('name') is-invalid @enderror"
+                                @error('name') is-invalid @enderror"
                                     id="name" name="name" value="{{ old('name') }}">
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
@@ -40,7 +40,7 @@
                             <label for="quantity" class="col-md-4 colform-label text-md-end text-start">Quantity</label>
                             <div class="col-md-6">
                                 <input type="number" class="form-control 
-@error('quantity') is-invalid @enderror"
+                                @error('quantity') is-invalid @enderror"
                                     id="quantity" name="quantity" value="{{ old('quantity') }}">
                                 @error('quantity')
                                     <span class="text-danger">{{ $message }}</span>
@@ -63,7 +63,7 @@
                                 class="col-md-4 colform-label text-md-end text-start">Description</label>
                             <div class="col-md-6">
                                 <textarea class="form-control 
-@error('description') is-invalid @enderror" id="description" name="description">{{ old('description') }}</textarea>
+                                @error('description') is-invalid @enderror" id="description" name="description">{{ old('description') }}</textarea>
                                 @error('description')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -72,7 +72,8 @@
                         <div class="mb-3 row">
                             <div class="col-md-6 offset-md-4 d-flex gap-2">
                                 <input type="submit" class="btn btn-primary" value="Add Product">
-                                <input type="file" class="form-control @error('photo') is-invalid @enderror" id="photo" name="photo" accept="image/*">
+                                <input type="file" class="form-control @error('photo') is-invalid @enderror"
+                                    id="photo" name="photo" accept="image/*">
                                 @error('photo')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

@@ -36,8 +36,8 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('products', 'public');
+        if (request()->hasFile('photo')) {
+            $data['photo'] = request()->file('photo')->store('products', 'public');
         }
 
         Product::create($data);
@@ -68,12 +68,12 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         
-        if ($request->hasFile('photo')) {
+        if (request()->hasFile('photo')) {
             // Delete old photo if exists
             if ($product->photo) {
                 Storage::disk('public')->delete($product->photo);
             }
-            $data['photo'] = $request->file('photo')->store('products', 'public');
+            $data['photo'] = request()->file('photo')->store('products', 'public');
         }
 
         $product->update($data);

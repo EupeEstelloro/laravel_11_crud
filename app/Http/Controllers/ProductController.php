@@ -69,7 +69,7 @@ class ProductController extends Controller
         $data = $request->validated();
         
         if (request()->hasFile('photo')) {
-            // Delete old photo if exists
+            
             if ($product->photo) {
                 Storage::disk('public')->delete($product->photo);
             }
